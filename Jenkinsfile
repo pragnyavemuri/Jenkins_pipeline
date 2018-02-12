@@ -18,12 +18,12 @@ pipeline {
 
 		steps{
   		checkout([$class: 'GitSCM',
-			  branches: [[name: 'De-develop']],
+			  branches: [[name: 'AU_ORDERING/DEV_RC2']],
 			  doGenerateSubmoduleConfigurations: false,
 			  extensions: [[$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: true, reference: '', timeout: 15, trackingSubmodules: true]],
 			  submoduleCfg: [],
 			  userRemoteConfigs: [[credentialsId: 'fcb0912a-1fc2-4f17-9951-bc6b60b74845', url: 'http://HygieiaUser@coderepository.mcd.com/scm/gma5_aus/ios.git']]])
-			}ef683bd0
+			}
   		}
 
         stage('Checkout') {
@@ -96,7 +96,7 @@ git checkout "${SDK_BRANCH}"
         bundle install
 
         # Fastlane
-        bundle exec fastlane ${FASTLANE_CONFIG} xcode:$XCODE configuration:$BUILD_CONFIGURATION
+        bundle exec fastlane qa_mcd configuration:QA
 	 '''
     }
     } 
