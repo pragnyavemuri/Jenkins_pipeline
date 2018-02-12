@@ -29,46 +29,77 @@ pipeline {
         stage('Checkout') {
           steps {
             sh '''
-			MCDARCH_DIR=${WORKSPACE}
-			MCDAPPCORE_DIR="${MCDARCH_DIR}/libraries/android-mcd-core-app"
-			MCDUIKIT_DIR="${MCDARCH_DIR}/libraries/android-mcd-core-app/libraries/android-mcd-uikit"
-			MCDCONNECT_DIR="${MCDARCH_DIR}/libraries/android-mcd-core-app/libraries/android-gma-sdk-sapient"
+			echo "*******************Updating submodule*************************"
+MCDARCH_DIR=${WORKSPACE}
+LOCALIZATION_DIR="${MCDARCH_DIR}/Arch/Localization"
+MCDAPPCORE_DIR="${MCDARCH_DIR}/AppCore"
+MCDUIKIT_DIR="${MCDARCH_DIR}/AppCore/McDAppCore/Frameworks/submodule_McDUIKit"
+MCDCONNECT_DIR="${MCDARCH_DIR}/AppCore/McDAppCore/Frameworks/submodule_McDonaldsSDK"
+ARCH_BRANCH=${GIT_BRANCH#*/}
+LOCALIZATION_BRANCH=${GIT_BRANCH#*/}
+APPCORE_BRANCH=${GIT_BRANCH#*/}
+UIKIT_BRANCH="AU-DEVELOP"
+SDK_BRANCH="AU-DEVELOP"
 
-			cd "${MCDARCH_DIR}"
-			git checkout ${ARCH_BRANCH}
-			git gc --prune=now
-			git clean -fdx
-			git pull
 
-			cd "${MCDAPPCORE_DIR}"
-			git checkout ${APPCORE_BRANCH}
-			git gc --prune=now
-			git clean -fdx
-			git pull
+echo "*************Checking out ARCH_US*******************"
+git checkout "${ARCH_BRANCH}"
+git gc --prune=now
+git clean -fdx
+git pull
 
-			cd "${MCDUIKIT_DIR}"
-			git checkout ${UIKIT_BRANCH}
-			git gc --prune=now
-			git clean -fdx
-			git pull
 
-			cd "${MCDCONNECT_DIR}"
-			git checkout ${SDK_BRANCH}
-			git gc --prune=now
-			git clean -fdx
-			git pull'''
+echo "*************Checking out Localization Repository*****************"
+
+cd "${LOCALIZATION_DIR}"
+git submodule
+git submodule init
+git submodule update --checkout --recursive
+git checkout "${LOCALIZATION_BRANCH}"
+
+
+echo "*************Checking out McDAppCore Repository*****************"
+
+cd "${MCDAPPCORE_DIR}"
+git submodule
+git submodule init
+git submodule update --checkout --recursive
+git checkout "${APPCORE_BRANCH}"
+
+echo "*************Checking out McDUIKit Repository*****************"
+
+cd "${MCDUIKIT_DIR}"
+git submodule
+git submodule init
+git submodule update --checkout --recursive
+git checkout "${UIKIT_BRANCH}"
+
+echo "*************Checking out MCDONALDsSDK Repository*****************"
+
+cd "${MCDCONNECT_DIR}"
+git submodule
+git submodule init
+git submodule update --checkout --recursive
+git checkout "${SDK_BRANCH}"
+'''
           }
         }
 
 
-  /* stage('Build') {
+   stage('Build') {
       steps {
         sh '''
 	  #run build
-	 # ./gradlew clean assembleQARelease
+	security unlock-keychain credentialsId: 'e8193c18-8c12-4317-ac97-a830dda83ec7' "/Users/mactest/Library/Keychains/login.keychain"
+
+        # Install any missing required gems
+        bundle install
+
+        # Fastlane
+        bundle exec fastlane ${FASTLANE_CONFIG} xcode:$XCODE configuration:$BUILD_CONFIGURATION
 	 '''
     }
-    } */
+    } 
 
 /*stage('Test') {
       steps {
