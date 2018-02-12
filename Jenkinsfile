@@ -22,7 +22,7 @@ pipeline {
 			  doGenerateSubmoduleConfigurations: false,
 			  extensions: [[$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: true, reference: '', timeout: 15, trackingSubmodules: true]],
 			  submoduleCfg: [],
-			  userRemoteConfigs: [[credentialsId: 'ef683bd0-363a-4e07-878d-33510fe96fe8', url: 'https://git-codecommit.us-east-2.amazonaws.com/v1/repos/mcdonalds-gma5x-android']]])
+			  userRemoteConfigs: [[credentialsId: 'ef683bd0-363a-4e07-878d-33510fe96fe8', url: 'http://HygieiaUser@coderepository.mcd.com/scm/gma5_aus/ios.git']]])
 			}
   		}
 
