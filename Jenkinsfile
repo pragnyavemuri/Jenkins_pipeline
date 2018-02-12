@@ -22,8 +22,8 @@ pipeline {
 			  doGenerateSubmoduleConfigurations: false,
 			  extensions: [[$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: true, reference: '', timeout: 15, trackingSubmodules: true]],
 			  submoduleCfg: [],
-			  userRemoteConfigs: [[credentialsId: 'ef683bd0-363a-4e07-878d-33510fe96fe8', url: 'http://HygieiaUser@coderepository.mcd.com/scm/gma5_aus/ios.git']]])
-			}
+			  userRemoteConfigs: [[credentialsId: 'fcb0912a-1fc2-4f17-9951-bc6b60b74845', url: 'http://HygieiaUser@coderepository.mcd.com/scm/gma5_aus/ios.git']]])
+			}ef683bd0
   		}
 
         stage('Checkout') {
