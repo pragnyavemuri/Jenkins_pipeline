@@ -93,7 +93,9 @@ git checkout GMA-5.x
 	/usr/libexec/PlistBuddy -c "Set :'Ensighten App ID' gma5-ios-datalayer-dev" Arch/Arch/Info.Plist
 	
 	  #run build
-	security unlock-keychain credentialsId: 'e8193c18-8c12-4317-ac97-a830dda83ec7' "/Users/mactest/Library/Keychains/login.keychain"
+	 # unlock-keychain [-u] [-p password] [keychain]
+	  security unlock-keychain -p "mactest" "/Users/mactest/Library/Keychains/login.keychain"
+	#security unlock-keychain credentialsId: 'e8193c18-8c12-4317-ac97-a830dda83ec7' "/Users/mactest/Library/Keychains/login.keychain"
 
         # Install any missing required gems
         bundle install
