@@ -18,7 +18,7 @@ pipeline {
 
 		steps{
   		checkout([$class: 'GitSCM',
-			  branches: [[name: 'AU_ORDERING/DEV_RC2']],
+			  branches: [[name: 'develop']],
 			  doGenerateSubmoduleConfigurations: false,
 			  extensions: [[$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: true, reference: '', timeout: 15, trackingSubmodules: true]],
 			  submoduleCfg: [],
