@@ -6,10 +6,10 @@ pipeline {
   		 }
 
 	parameters{
-		string(defaultValue: 'master', description: '', name: 'ARCH_BRANCH')
-		string(defaultValue: 'master', description: '', name: 'APPCORE_BRANCH')
-		string(defaultValue: 'master', description: '', name: 'UIKIT_BRANCH')
-		string(defaultValue: 'master', description: '', name: 'SDK_BRANCH')}
+		string(defaultValue: 'develop', description: '', name: 'ARCH_BRANCH')
+		string(defaultValue: 'develop', description: '', name: 'APPCORE_BRANCH')
+		string(defaultValue: 'develop', description: '', name: 'UIKIT_BRANCH')
+		string(defaultValue: 'develop', description: '', name: 'SDK_BRANCH')}
 
 
   stages {
@@ -22,7 +22,7 @@ pipeline {
 			  doGenerateSubmoduleConfigurations: false,
 			  extensions: [[$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: true, reference: '', timeout: 15, trackingSubmodules: true]],
 			  submoduleCfg: [],
-			  userRemoteConfigs: [[credentialsId: 'fcb0912a-1fc2-4f17-9951-bc6b60b74845', url: 'http://HygieiaUser@coderepository.mcd.com/scm/gma5_aus/ios.git']]])
+			  userRemoteConfigs: [[credentialsId: '3b905957-4471-4d89-a2a7-207b2dcc1630', url: 'ssh://git@coderepository.mcd.com:8443/archus/ios.git']]])
 			}
   		}
 
@@ -38,12 +38,12 @@ MCDCONNECT_DIR="${MCDARCH_DIR}/AppCore/McDAppCore/Frameworks/submodule_McDonalds
 ARCH_BRANCH=${GIT_BRANCH#*/}
 LOCALIZATION_BRANCH=${GIT_BRANCH#*/}
 APPCORE_BRANCH=${GIT_BRANCH#*/}
-UIKIT_BRANCH="AU-DEVELOP"
-SDK_BRANCH="AU-DEVELOP"
+UIKIT_BRANCH=${GIT_BRANCH#*/}
+SDK_BRANCH="GMA-5.x"
 
 
 echo "*************Checking out ARCH_US*******************"
-git checkout "${ARCH_BRANCH}"
+git checkout "develop"
 git gc --prune=now
 git clean -fdx
 git pull
@@ -51,11 +51,11 @@ git pull
 
 echo "*************Checking out Localization Repository*****************"
 
-cd "${LOCALIZATION_DIR}"
-git submodule
-git submodule init
-git submodule update --checkout --recursive
-git checkout "${LOCALIZATION_BRANCH}"
+#cd "${LOCALIZATION_DIR}"
+#git submodule
+#git submodule init
+#git submodule update --checkout --recursive
+#git checkout feature/ARCH-32605
 
 
 echo "*************Checking out McDAppCore Repository*****************"
@@ -64,7 +64,7 @@ cd "${MCDAPPCORE_DIR}"
 git submodule
 git submodule init
 git submodule update --checkout --recursive
-git checkout "${APPCORE_BRANCH}"
+git checkout develop
 
 echo "*************Checking out McDUIKit Repository*****************"
 
@@ -72,7 +72,7 @@ cd "${MCDUIKIT_DIR}"
 git submodule
 git submodule init
 git submodule update --checkout --recursive
-git checkout "${UIKIT_BRANCH}"
+git checkout develop
 
 echo "*************Checking out MCDONALDsSDK Repository*****************"
 
@@ -80,7 +80,7 @@ cd "${MCDCONNECT_DIR}"
 git submodule
 git submodule init
 git submodule update --checkout --recursive
-git checkout "${SDK_BRANCH}"
+git checkout GMA-5.x
 '''
           }
         }
@@ -89,6 +89,8 @@ git checkout "${SDK_BRANCH}"
    stage('Build') {
       steps {
         sh '''
+	/usr/libexec/PlistBuddy -c "Set :'Ensighten App ID' gma5-ios-datalayer-dev" Arch/Arch/Info.Plist
+	
 	  #run build
 	security unlock-keychain credentialsId: 'e8193c18-8c12-4317-ac97-a830dda83ec7' "/Users/mactest/Library/Keychains/login.keychain"
 
