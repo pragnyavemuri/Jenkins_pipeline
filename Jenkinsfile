@@ -1,5 +1,5 @@
 pipeline {
-  agent Mac
+	agent Mac{
   options{
   	timestamps()
 
@@ -150,4 +150,6 @@ git checkout GMA-5.x
             
         }
     } */
+
+	}
 }
