@@ -1,5 +1,5 @@
 pipeline {
-	agent {'Mac'}
+	agent { label 'Mac' }
   options{
   	timestamps()
 
