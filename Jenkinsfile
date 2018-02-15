@@ -113,7 +113,7 @@ git checkout GMA-5.x
     }
 */
 
-    stage('Hockeyapp') {
+ /*   stage('Hockeyapp') {
     	steps {
     			step([$class: 'HockeyappRecorder',
     			applications: [[apiToken: '6d02c4317eb5438eb67da9e06b752825',
@@ -127,7 +127,7 @@ git checkout GMA-5.x
     			failGracefully: false])
     	 	 }
 }
-    } 
+    } */
  /*	post {
 
 		success {
