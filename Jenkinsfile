@@ -113,12 +113,12 @@ git checkout GMA-5.x
     }
 */
 
- /*   stage('Hockeyapp') {
+    stage('Hockeyapp') {
     	steps {
     			step([$class: 'HockeyappRecorder',
-    			applications: [[apiToken: 'd90ccdd12e7440518048400adee5bb23',
+    			applications: [[apiToken: '6d02c4317eb5438eb67da9e06b752825',
     			downloadAllowed: false,
-    			filePath: 'app/build/outputs/apk/app-QA-release.apk',
+    			filePath: 'build/Arch.ipa',
     			mandatory: false,
     			notifyTeam: false,
     			releaseNotesMethod: [$class: 'NoReleaseNotes'],
@@ -126,7 +126,7 @@ git checkout GMA-5.x
     			debugMode: false,
     			failGracefully: false])
     	 	 }
-}*/
+}
     } 
  /*	post {
 
