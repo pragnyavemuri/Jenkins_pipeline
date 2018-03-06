@@ -6,10 +6,12 @@ pipeline {
   		 }
 
 	parameters{
-		string(defaultValue: 'develop', description: '', name: 'ARCH_BRANCH')
+		string(defaultValue: 'fastlane/match', description: '', name: 'ARCH_BRANCH')
 		string(defaultValue: 'develop', description: '', name: 'APPCORE_BRANCH')
 		string(defaultValue: 'develop', description: '', name: 'UIKIT_BRANCH')
-		string(defaultValue: 'develop', description: '', name: 'SDK_BRANCH')}
+		string(defaultValue: 'GMA-5.x', description: '', name: 'SDK_BRANCH')
+		string(defaultValue: 'develop', description: '', name: 'LOCALIZATION_BRANCH')
+		}
 
 
   stages {
