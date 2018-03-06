@@ -22,7 +22,7 @@ pipeline {
   		checkout([$class: 'GitSCM',
 			  branches: [[name: 'develop']],
 			  doGenerateSubmoduleConfigurations: false,
-			  extensions: [[$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: true, reference: '', timeout: 15, trackingSubmodules: true]],
+			  extensions: [[$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: true, reference: '', timeout: 15, trackingSubmodules: true], [$class: 'WipeWorkspace']],
 			  submoduleCfg: [],
 			  userRemoteConfigs: [[credentialsId: '3b905957-4471-4d89-a2a7-207b2dcc1630', url: 'ssh://git@coderepository.mcd.com:8443/archus/ios.git']]])
 			}
