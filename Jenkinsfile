@@ -118,7 +118,7 @@ git checkout GMA-5.x
     stage('Hockeyapp') {
     	steps {
     			step([$class: 'HockeyappRecorder',
-    			applications: [[apiToken: '6d02c4317eb5438eb67da9e06b752825',
+    			applications: [[apiToken: '41f5cf2e56fe48d2bd099f98a4011184',
     			downloadAllowed: false,
     			filePath: 'build/Arch.ipa',
     			mandatory: false,
